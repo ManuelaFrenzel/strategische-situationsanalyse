@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Krisenmanagement Orientierungs-Audit | Frenzel Publikationen</title>
+    <style>
+        :root {
+            --primary: #1a5276;
+            --danger: #c0392b;
+            --warning: #f39c12;
+            --success: #27ae60;
+            --bg-light: #f5f5f5;
+            --border: #ddd;
+        }
+        /* Tiiny.site Hintergrund-Override */
+html, body {
+    background: var(--bg-light) !important;
+    background-color: #f5f5f5 !important;
+}
+
+/* Falls tiiny einen Wrapper-Div hinzufügt */
+body > div[class]:not(.container):not(.modal-overlay) {
+    background: transparent !important;
+}
+
+/* Sicherstellen, dass der Container weiß bleibt */
+.container {
+    background: transparent !important;
+}
+
+.gateway, .section {
+    background: white !important;
+}
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: var(--bg-light);
+            -webkit-text-size-adjust: 100%;
+            touch-action: manipulation;
+        }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        
+        .emergency-banner {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        .contact-box {
+            background: rgba(255,255,255,0.15);
+            padding: 15px;
+            border-radius: 6px;
+            text-align: left;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .contact-box strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 5px;
+        }
+        
+        .contact-box a {
+            color: #fff;
+            text-decoration: underline;
+            word-break: break-all;
+        }
+        
+        .contact-box small {
+            display: block;
+            margin-top: 8px;
+            opacity: 0.9;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+        
+        .gateway {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .type-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .type-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 30px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            background: white;
+        }
+        
+        .type-card:hover { 
+            border-color: var(--primary); 
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .type-card.active { 
+            border-color: var(--primary); 
+            background: #f0f7fb;
+            box-shadow: 0 4px 12px rgba(26,82,118,0.15);
+        }
+        
+        .badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .badge-einzel { background: var(--success); color: white; }
+        .badge-kmu { background: var(--warning); color: white; }
+        .badge-gross { background: var(--danger); color: white; }
+        
+        .section {
+            background: white;
+            padding: 0;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: none;
+            overflow: hidden;
+        }
+        
+        .section.active { display: block; animation: slideIn 0.4s ease; }
+        
+        @keyframes slideIn { 
+            from { opacity: 0; transform: translateY(-10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        .section-header {
+            background: var(--primary);
+            color: white;
+            padding: 16px 24px;
+            font-size: 1.15em;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        
+        .section-content {
+            padding: 24px;
+        }
+        
+        .grid-2 { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+        }
+        
+        .grid-3 { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px; 
+        }
+        
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #444;
+            font-size: 0.95em;
+        }
+        
+        label.required::after { 
+            content: " *"; 
+            color: var(--danger); 
+        }
+        
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        input[type="number"],
+        input[type="datetime-local"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: all 0.2s;
+            min-height: 44px;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26,82,118,0.1);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: normal;
+            font-size: 0.95em;
+            padding: 6px 0;
+            line-height: 1.4;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            flex-shrink: 0;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+        
+        .authorities-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .authority-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .contact-info {
+            font-family: 'Courier New', monospace;
+            background: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 0.9em;
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .email-info {
+            font-family: 'Courier New', monospace;
+            background: #e8f4f8;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid #b8d4e3;
+            font-size: 0.85em;
+            color: var(--primary);
+        }
+        
+        .deadline-calculator {
+            background: linear-gradient(135deg, #eaf2f8 0%, #d5e8f0 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            margin: 20px 0;
+        }
+        
+        .deadline-display {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--danger);
+            font-family: 'Courier New', monospace;
+            margin-top: 5px;
+        }
+        
+        .conditional {
+            display: none;
+            padding: 15px;
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            margin-top: 15px;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.95em;
+        }
+        
+        .conditional.show { display: block; }
+        
+        .alert-box {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border: 1px solid #b3d7ff;
+            color: #004085;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        
+        .stakeholder-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .crisis-team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .team-role {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+        
+        .team-role.critical {
+            border-color: var(--danger);
+            background: #fdf2f2;
+        }
+        
+        .measures-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.95em;
+        }
+        
+        .measures-table th {
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .measures-table td {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .action-footer {
+            position: sticky;
+            bottom: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            text-align: center;
+            margin-top: 40px;
+            border: 2px solid var(--primary);
+            z-index: 100;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-right: 10px;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary:hover { background: #154a6b; transform: translateY(-1px); }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        .btn-secondary:hover { background: #5a6268; }
+        
+        .btn-small {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .info-text {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* HILFE-MODAL CSS */
+        .help-trigger {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.9);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .help-trigger:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            background: var(--primary);
+            color: white;
+            padding: 20px 24px;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .modal-close {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .faq-answer {
+            color: #555;
+            line-height: 1.6;
+            padding-left: 5px;
+        }
+
+        .faq-answer ul {
+            margin-top: 8px;
+            margin-bottom: 8px;
+            padding-left: 20px;
+        }
+
+        /* STICKY ZURÜCK-BUTTON */
+        .btn-back-sticky {
+            position: sticky;
+            top: 10px;
+            z-index: 50;
+            background: white;
+            padding: 10px 20px;
+            margin: 0 0 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: inline-block;
+        }
+
+        .btn-back {
+            background: transparent;
+            color: #666;
+            border: 1px solid #ccc;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-back:hover {
+            background: #f5f5f5;
+            border-color: #999;
+            color: #333;
+        }
+
+        @media print {
+            body { background: white; }
+            .no-print { display: none !important; }
+            .section { display: block !important; page-break-inside: avoid; box-shadow: none; }
+            .section-header { background: #1a5276 !important; color: white !important; -webkit-print-color-adjust: exact; }
+            input, textarea { border: none; border-bottom: 1pt solid #999; background: transparent; }
+            select { appearance: none; border: none; background: transparent; }
+            .emergency-banner { background: #c0392b !important; -webkit-print-color-adjust: exact; }
+            .contact-box { background: #f5f5f5 !important; color: black !important; border: 1pt solid #999; }
+            .contact-box a { color: #1a5276 !important; text-decoration: none !important; }
+            .btn-back-sticky { display: none !important; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 10px; max-width: 100%; }
+            .gateway { padding: 20px 15px; margin-bottom: 15px; }
+            .gateway h1 { font-size: 1.5em; }
+            .type-selector { grid-template-columns: 1fr; gap: 15px; }
+            .type-card { padding: 20px 15px; }
+            .emergency-banner { padding: 15px 10px; }
+            .emergency-grid { grid-template-columns: 1fr; gap: 10px; }
+            .contact-box { padding: 12px; font-size: 0.9em; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; gap: 0; }
+            .checkbox-grid { grid-template-columns: 1fr; gap: 8px; }
+            .stakeholder-row { grid-template-columns: 1fr; gap: 8px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #eee; }
+            .crisis-team-grid { grid-template-columns: 1fr; }
+            input, select, textarea { font-size: 16px !important; padding: 12px; margin-bottom: 10px; }
+            .checkbox-item { padding: 10px 0; font-size: 1em; }
+            .checkbox-item input[type="checkbox"] { width: 22px; height: 22px; }
+            .section-header { padding: 12px 16px; font-size: 1em; }
+            .section-content { padding: 16px; }
+            .action-footer { position: fixed; bottom: 0; left: 0; right: 0; margin: 0; border-radius: 0; padding: 12px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); border: none; border-top: 2px solid var(--primary); }
+            .btn-primary, .btn-secondary { width: 100%; margin: 0 0 8px 0; padding: 16px; font-size: 16px; }
+            form { padding-bottom: 140px; }
+            .help-trigger { top: 15px; right: 15px; width: 40px; height: 40px; font-size: 18px; }
+            .btn-back-sticky { top: 5px; padding: 8px 15px; }
+        }
+
+        @media (max-width: 380px) {
+            .badge { position: static; display: inline-block; margin-bottom: 8px; }
+            .type-card { text-align: left; }
+            .type-card h3 { margin-top: 0; font-size: 1.1em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- HAUPTTITEL -->
+    <div style="text-align: center; margin-bottom: 30px; padding: 20px 0; border-bottom: 3px solid var(--primary);">
+        <h1 style="color: var(--primary); font-size: 2.2em; margin: 0; letter-spacing: -0.5px;">Strukturierte Situationsanalyse</h1>
+        <p style="color: #666; margin-top: 8px; font-size: 1.1em;">Krisenmanagement Orientierungs-Audit für Datenschutzvorfälle</p>
+    </div>
+
+    <!-- HILFE MODAL (nur einmal!) -->
+    <div class="modal-overlay" id="helpModal" onclick="closeHelp(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2>❓ Wie funktioniert dieses Tool?</h2>
+                <button class="modal-close" onclick="closeHelp()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="faq-item">
+                    <div class="faq-question">🚨 Was ist ein "Datenschutzvorfall"?</div>
+                    <div class="faq-answer">
+                        Ein Verstoss gegen den Schutz personenbezogener Daten. Beispiele:
+                        <ul>
+                            <li>Hacking-Angriff mit Datenabfluss</li>
+                            <li>Verlorener Laptop mit Kundendaten</li>
+                            <li>Fehlgeleitete E-Mail mit personenbezogenen Daten</li>
+                            <li>Ransomware-Befall</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">⏰ Warum 72 Stunden?</div>
+                    <div class="faq-answer">
+                        Die DSGVO (Art. 33) schreibt vor, dass schwerwiegende Datenschutzverstösse <strong>innerhalb von 72 Stunden</strong> bei der zuständigen Behörde gemeldet werden müssen.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">📋 Was macht dieses Tool?</div>
+                    <div class="faq-answer">
+                        Es führt Sie strukturiert durch die Erstdokumentation mit Fristenberechnung, Behördenkontakten und PDF-Export. Alle Daten bleiben offline in Ihrem Browser.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">👥 Wer muss melden?</div>
+                    <div class="faq-answer">
+                        Alle Unternehmer, die personenbezogene Daten verarbeiten – von Selbstständigen bis zu Grossunternehmen.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="emergency-banner">
+        <h2 style="margin-bottom: 10px;">Notfall-Kontakte & Meldewege</h2>
+        <div class="emergency-grid">
+            <div class="contact-box">
+                <strong>Schweiz - BACS</strong>
+                <div style="margin: 8px 0;">
+                    <a href="https://www.report.ncsc.admin.ch/de/chat?path=406%3E407%3E1 " target="_blank">Cybervorfall melden (Formular)</a>
+                </div>
+                <div style="margin: 5px 0;">
+                    <span class="email-info">incidents@ncsc.ch</span>
+                </div>
+                <small>
+                    Kein Telefon-Support! Kein 24/7-Notfalldienst.<br>
+                    Bei akuten Gefahren: Polizei 117<br>
+                    Achtung Fake-Anrufe: BACS ruft nie unaufgefordert an!
+                </small>
+            </div>
+            
+            <div class="contact-box">
+                <strong>Deutschland - BSI</strong>
+                <div style="margin: 8px 0;">
+                    <span class="contact-info">+49 800 274 1000</span>
+                </div>
+                <div style="margin: 5px 0;">
+                    <span class="email-info">service-center@bsi.bund.de</span>
+                </div>
+                <small>
+                    Mo-Do: 08:00-17:00 Uhr<br>
+                    Fr: 08:00-16:00 Uhr<br>
+                    Kostenlos aus deutschem Netz
+                </small>
+            </div>
+            
+            <div class="contact-box">
+                <strong>Schweiz - EDoeb</strong>
+                <div style="margin: 8px 0;">
+                    <span class="contact-info">+41 58 462 43 95</span>
+                </div>
+                <small>
+                    Mo-Fr: 10:00 - 11:30 Uhr<br>
+                    Datenschutz-Meldungen (DSG)<br>
+                    Online: edoeb.admin.ch
+                </small>
+            </div>
+            
+            <div class="contact-box">
+                <strong>Schweiz - FINMA</strong>
+                <div style="margin: 8px 0;">
+                    <span class="contact-info">+41 31 327 98 88</span>
+                </div>
+                <small>
+                    FINMA-Hotline<br>
+                    Bei Finanzdienstleistungen<br>
+                    finma.ch
+                </small>
+            </div>
+            
+            <div class="contact-box">
+                <strong>Polizei (Notruf)</strong>
+                <div style="margin: 8px 0;">
+                    <span class="contact-info">117 (CH) / 110 (DE)</span>
+                </div>
+                <small>
+                    24/7 bei Straftaten:<br>
+                    Erpressung, Hacking, Datenklau,<br>
+                    Wirtschaftsspionage, Drohungen
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <div class="gateway" id="gateway">
+        <button class="help-trigger" onclick="openHelp()" title="Wie funktioniert das?">?</button>
+        <h1 style="color: var(--primary); margin-bottom: 10px;">Krisenmanagement Orientierungs-Audit</h1>
+        <p style="color: #666; font-size: 1.1em; margin-bottom: 10px;">Strukturierte Risikoanalyse fuer Schweiz (CH) und Deutschland (DE)</p>
+        <p style="color: #999; font-size: 0.9em;">© Manuela Frenzel | manuelafrenzel.com</p>
+        
+        <div class="type-selector">
+            <div class="type-card" onclick="selectType('einzel', this)">
+                <span class="badge badge-einzel">EINZEL</span>
+                <h3 style="margin-top: 10px; color: var(--primary);">Einzelunternehmer</h3>
+                <p style="font-size: 0.9em; color: #666; margin-top: 10px; line-height: 1.5;">
+                    Bis 9 Mitarbeitende<br>
+                    Fokus: Persoenliche Haftung, schnelle Entscheidungen, vereinfachte Dokumentation
+                </p>
+            </div>
+            
+            <div class="type-card" onclick="selectType('kmu', this)">
+                <span class="badge badge-kmu">KMU</span>
+                <h3 style="margin-top: 10px; color: var(--primary);">Kleinunternehmen</h3>
+                <p style="font-size: 0.9em; color: #666; margin-top: 10px; line-height: 1.5;">
+                    10-249 Mitarbeitende<br>
+                    Fokus: DSB-Pflichten, Stakeholder-Management, Standard-Prozesse
+                </p>
+            </div>
+            
+            <div class="type-card" onclick="selectType('gross', this)">
+                <span class="badge badge-gross">GROSS</span>
+                <h3 style="margin-top: 10px; color: var(--primary);">Grossunternehmen</h3>
+                <p style="font-size: 0.9em; color: #666; margin-top: 10px; line-height: 1.5;">
+                    250+ Mitarbeitende<br>
+                    Fokus: Krisenstab, Chain of Custody, Compliance, Boersenrelevanz
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- WICHTIG: Kein doppeltes Form-Tag! -->
+    <form id="crisisForm" style="display: none;">
+        <!-- STICKY ZURÜCK-BUTTON -->
+        <div class="btn-back-sticky no-print">
+            <button type="button" class="btn-back" onclick="backToSelection()">
+                ← Zurück zur Auswahl
+            </button>
+        </div>
+        
+        <!-- Section 0 - Kontaktdaten (für alle sichtbar) -->
+        <div class="section active" data-groups="einzel kmu gross">
+            <div class="section-header">Kontaktdaten des betroffenen Unternehmens</div>
+            <div class="section-content">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="required">Firmenname / Unternehmensbezeichnung</label>
+                        <input type="text" id="companyName" placeholder="z.B. Muster GmbH" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">Ansprechpartner (Name)</label>
+                        <input type="text" id="contactName" placeholder="Vor- und Nachname" required>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Abteilung / Funktion</label>
+                        <input type="text" id="contactDepartment" placeholder="z.B. Geschäftsführung, IT-Sicherheit">
+                    </div>
+                    <div class="form-group">
+                        <label class="required">E-Mail-Adresse</label>
+                        <input type="text" id="contactEmail" placeholder="name@unternehmen.ch" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Strasse / Hausnummer</label>
+                    <input type="text" id="contactStreet" placeholder="z.B. Musterstrasse 123" required>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="required">PLZ</label>
+                        <input type="text" id="contactZip" placeholder="8000" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">Ort</label>
+                        <input type="text" id="contactCity" placeholder="Zürich" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Telefonnummer (direkt erreichbar)</label>
+                    <input type="text" id="contactPhone" placeholder="+41 44 123 45 67" required>
+                    <div class="info-text">Wichtig für Rückfragen der Behörden (BACS, BSI, Datenschutz)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="section" data-groups="einzel kmu gross">
+            <div class="section-header">1. Basisinformationen zum Vorfall</div>
+            <div class="section-content">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="required">Datum des Vorfalls</label>
+                        <input type="date" id="incidentDate" required onchange="calculateDeadlines()">
+                    </div>
+                    <div class="form-group">
+                        <label>Uhrzeit (ca.)</label>
+                        <input type="time" id="incidentTime" onchange="calculateDeadlines()">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="required">Standort/Geltungsbereich</label>
+                        <select id="location" onchange="updateAuthorities()">
+                            <option value="">Bitte waehlen...</option>
+                            <option value="ch">Schweiz (CH)</option>
+                            <option value="de">Deutschland (DE)</option>
+                            <option value="both">Beide Laender</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="required">Branche/Sektor</label>
+                        <select id="sector" onchange="checkKritis()">
+                            <option value="">Bitte waehlen...</option>
+                            <option value="handel">Handel/E-Commerce</option>
+                            <option value="prod">Produktion/Industrie</option>
+                            <option value="dienst">Dienstleistungen/Beratung</option>
+                            <option value="it">IT/Software</option>
+                            <option value="finanz">Finanzdienstleistungen</option>
+                            <option value="gesund">Gesundheit/Pflege</option>
+                            <option value="transport">Transport/Logistik (KRITIS)</option>
+                            <option value="energie">Energie/Versorgung (KRITIS)</option>
+                            <option value="pharma">Pharma/Chemie</option>
+                            <option value="other">Sonstige</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="required">Zusammenfassung des Vorfalls</label>
+                    <textarea id="summary" rows="3" placeholder="Was ist passiert? Wer ist betroffen? Was wurde bisher unternommen?" required></textarea>
+                </div>
+
+                <div class="deadline-calculator">
+                    <strong>Automatische Fristenberechnung DSGVO (Art. 33)</strong>
+                    <div class="deadline-display" id="gdprDeadline">--</div>
+                    <div style="margin-top: 5px; font-size: 0.9em; color: #555;">
+                        Status: <span id="deadlineStatus">Bitte Datum eingeben</span>
+                    </div>
+                    <div id="kritis-warning" class="conditional" style="background: #f8d7da; border-color: #dc3545; color: #721c24; margin-top: 15px;">
+                        <strong>KRITIS-Meldung erforderlich!</strong><br>
+                        Als KRITIS-Betreiber muessen Sie unverzueglich melden (24h Early Warning). 
+                        Zusaetzlich zur DSGVO-Meldung ist eine Meldung an BACS (CH) oder BSI (DE) erforderlich.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="section" data-groups="einzel">
+            <div class="section-header">2. Schadensbewertung</div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label>Einschaetzung der Auswirkungen</label>
+                    <select id="impact-einzel">
+                        <option value="low">Niedrig (Intern loesbar)</option>
+                        <option value="medium">Mittel (Kundenkommunikation noetig)</option>
+                        <option value="high">Hoch (Behoerdenmeldung erforderlich)</option>
+                        <option value="critical">Kritisch (Existenzbedrohlich)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Geschaetzter finanzieller Schaden</label>
+                    <input type="text" placeholder="z.B. 5.000 EUR/CHF">
+                </div>
+            </div>
+        </div>
+
+        <div class="section" data-groups="kmu gross">
+            <div class="section-header">2. Impact Assessment</div>
+            <div class="section-content">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Menschenleben betroffen?</label>
+                        <select id="human-impact">
+                            <option value="no">Nein</option>
+                            <option value="injured">Verletzte</option>
+                            <option value="dead">Todesopfer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Kernbetrieb unterbrochen?</label>
+                        <select id="business-continuity">
+                            <option value="no">Nein</option>
+                            <option value="partial">Teilweise</option>
+                            <option value="full">Vollstaendig</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Geschaetzter Schaden (inkl. Folgekosten)</label>
+                        <input type="number" placeholder="Betrag in EUR/CHF">
+                    </div>
+                    <div class="form-group">
+                        <label>Versicherungsstatus</label>
+                        <input type="text" placeholder="Cyber-Versicherung, D&O, etc.">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" data-groups="gross">
+            <div class="section-content" style="border-top: 3px solid var(--primary); padding-top: 20px; margin-top: -10px;">
+                <div class="grid-3">
+                    <div class="form-group">
+                        <label>Details Menschenleben</label>
+                        <textarea rows="2" placeholder="Verletzte, Todesopfer, Details"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Details Business Continuity</label>
+                        <textarea rows="2" placeholder="Ausfallzeiten, verlorene Daten..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>ESG-Relevanz</label>
+                        <div class="checkbox-grid" style="grid-template-columns: 1fr;">
+                            <label class="checkbox-item"><input type="checkbox"> <span>Umweltauswirkungen</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>Reputationsrisiko</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>Boersenrelevanz (Ad-hoc)</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="section" data-groups="einzel">
+            <div class="section-header">3. Betroffene Parteien</div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label>Wer ist betroffen?</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-item">
+                            <input type="checkbox"> 
+                            <span>Eigene Kunden</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox"> 
+                            <span>Lieferanten</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox"> 
+                            <span>Partner/Unternehmen</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox"> 
+                            <span>Keine Externen</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Kommunikation durchgefuehrt?</label>
+                    <select style="width: 100%;">
+                        <option>Noch nicht</option>
+                        <option>In Vorbereitung</option>
+                        <option>Abgeschlossen</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" data-groups="kmu">
+            <div class="section-header">3. Stakeholder-Analyse</div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label>Mitarbeiter - Wer ist betroffen?</label>
+                    <input type="text" placeholder="Abteilungen, Anzahl Mitarbeitende">
+                </div>
+                <div class="form-group">
+                    <label>Kunden - Vertragsauswirkungen</label>
+                    <textarea placeholder="SLA-Verletzungen, Vertragsstrafen, etc."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Investoren/Finanzierung</label>
+                    <input type="text" placeholder="Banken, Geldgeber, Informationsbedarf">
+                </div>
+            </div>
+        </div>
+
+        <div class="section" data-groups="gross">
+            <div class="section-header">3. Detaillierte Stakeholder-Matrix</div>
+            <div class="section-content">
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: var(--primary); font-size: 0.9em; text-transform: uppercase;">Mitarbeiter</strong>
+                    <div class="stakeholder-row" style="margin-top: 8px;">
+                        <input type="text" placeholder="Abteilung/Bereich">
+                        <input type="text" placeholder="Betroffen (Anzahl)">
+                        <input type="text" placeholder="Kommunikationskanal">
+                        <input type="text" placeholder="Verantwortlich">
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <strong style="color: var(--primary); font-size: 0.9em; text-transform: uppercase;">Kunden</strong>
+                    <div class="stakeholder-row" style="margin-top: 8px;">
+                        <input type="text" placeholder="Kundengruppe/Segment">
+                        <input type="text" placeholder="Vertragsauswirkungen">
+                        <input type="text" placeholder="Prioritaet">
+                        <input type="text" placeholder="Verantwortlich">
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Investoren/Aktionaere</label>
+                        <input type="text" placeholder="Informationsbedarf, Ad-hoc-Pflicht">
+                    </div>
+                    <div class="form-group">
+                        <label>Mediensichtbarkeit</label>
+                        <select>
+                            <option>Lokal</option>
+                            <option>National</option>
+                            <option>International</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="section" data-groups="einzel kmu gross">
+            <div class="section-header">4. Rechtliche Einschaetzung & Meldepflichten</div>
+            <div class="section-content">
+                <div data-show-for="einzel">
+                    <div class="form-group">
+                        <label>Rechtsberatung eingeholt?</label>
+                        <select>
+                            <option>Nein (noch nicht erforderlich)</option>
+                            <option>Ja, Rechtsanwalt</option>
+                            <option>Ja, Fachanwalt IT-Recht</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div data-show-for="kmu gross" style="display: none;">
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Anwalt (Schweiz)</label>
+                            <input type="text" placeholder="Name, Kanzlei">
+                        </div>
+                        <div class="form-group">
+                            <label>Anwalt (Deutschland)</label>
+                            <input type="text" placeholder="Name, Kanzlei">
+                        </div>
+                    </div>
+                    
+                    <div id="dsb-field" style="display: none;" class="form-group">
+                        <label style="color: var(--danger);">Datenschutzbeauftragte/r (DSB) informiert?</label>
+                        <select>
+                            <option>Ja, interner DSB</option>
+                            <option>Ja, externer DSB</option>
+                            <option>Nein (wird nachgeholt)</option>
+                            <option>Nicht bestellt (Pflichtverletzung!)</option>
+                        </select>
+                        <div class="alert-box">
+                            <strong>DSB-Pflicht-Check:</strong> Bei 10+ MA in kritischen Branchen oder 50+ MA generell vorgeschrieben!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
+                    <label>Zu meldende Behoerden (bitte ankreuzen):</label>
+                    <div id="authorities-container" class="authorities-grid">
+                        <div style="color: #999; font-style: italic; padding: 10px;">Bitte zuerst Standort auswaehlen...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="section" data-groups="kmu gross">
+            <div class="section-header">5. Ressourcen & Kapazitaeten</div>
+            <div class="section-content">
+                <div data-show-for="kmu">
+                    <div class="form-group">
+                        <label>Krisenstab/Entscheidungsgremium</label>
+                        <input type="text" placeholder="z.B. Geschaeftsfuehrung + externer IT-Dienstleister">
+                    </div>
+                    <div class="form-group">
+                        <label>Externe Berater involviert?</label>
+                        <input type="text" placeholder="IT-Forensik, PR-Agentur, Rechtsanwalt">
+                    </div>
+                </div>
+
+                <div data-show-for="gross" style="display: none;">
+                    <div class="crisis-team-grid">
+                        <div class="team-role critical">
+                            <label>Krisenstab-Leitung</label>
+                            <input type="text" placeholder="Name, Funktion">
+                        </div>
+                        <div class="team-role">
+                            <label>IT/Technik</label>
+                            <input type="text" placeholder="CIO/CTO">
+                        </div>
+                        <div class="team-role">
+                            <label>Recht/Compliance</label>
+                            <input type="text" placeholder="General Counsel">
+                        </div>
+                        <div class="team-role">
+                            <label>HR/Personal</label>
+                            <input type="text" placeholder="CHRO">
+                        </div>
+                        <div class="team-role">
+                            <label>PR/Kommunikation</label>
+                            <input type="text" placeholder="CPO/PR-Leiter">
+                        </div>
+                        <div class="team-role">
+                            <label>Finanzen</label>
+                            <input type="text" placeholder="CFO">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 25px; padding-top: 20px; border-top: 2px solid var(--border);">
+                        <label>Krisenstab / Entscheidungsbefugnisse</label>
+                        <textarea rows="4" placeholder="Zusammensetzung des Krisenstabs, Entscheidungswege, Eskalationsstufen, Vollmachten (z.B. Notfall-Vollmachten fuer IT-Administratoren, Kommunikationsfreigaben)"></textarea>
+                        <div class="info-text">
+                            Beschreiben Sie kurz die Entscheidungsstrukturen und wer welche Befugnisse im Ernstfall hat.
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Kommunikationskanaele</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item"><input type="checkbox"> <span>E-Mail</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>Website (Statuspage)</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>Social Media</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>Presse/PR</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>Telefon/Hotline</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>Interne Kommunikation</span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 6 -->
+        <div class="section" data-groups="gross">
+            <div class="section-header">6. Oeffentlichkeitsarbeit & Social Media Monitoring</div>
+            <div class="section-content">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Bekanntheit auf Social Media</label>
+                        <select id="socialMediaKnown" onchange="toggleConditional('social-details', this.value === 'ja' || this.value === 'ja_kontrolliert')">
+                            <option value="nein">Nein, noch nicht bekannt</option>
+                            <option value="ja">Ja, bereits viral / unkontrolliert</option>
+                            <option value="ja_kontrolliert">Ja, aber im Griff / kontrolliert</option>
+                            <option value="verdacht">Verdacht auf geplante Verbreitung</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Aktuelle Stimmungslage (Sentiment)</label>
+                        <select>
+                            <option>Neutral/Unbekannt</option>
+                            <option>Leicht negativ</option>
+                            <option>Stark negativ/Shitstorm</option>
+                            <option>Mixed/Debatte</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="social-details" class="conditional">
+                    <div class="form-group">
+                        <label>Betroffene Kanäle (mehrfach möglich)</label>
+                        <div class="checkbox-grid">
+                            <label class="checkbox-item"><input type="checkbox"> <span>LinkedIn</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>X (Twitter)</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>Facebook</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>Instagram</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>TikTok</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>Kununu/Glassdoor</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>Reddit</span></label>
+                            <label class="checkbox-item"><input type="checkbox"> <span>Branchenforen</span></label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Key Influencer / Accounts</label>
+                        <textarea rows="2" placeholder="Nennenswerte Accounts, die den Vorfall geteilt haben (Journalisten, Branchenexperten, Kunden)"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Massnahmen zur Kontrolle / Gegensteuerung</label>
+                    <textarea rows="3" placeholder="Geplante oder bereits durchgeführte Social Media Posts, Statements, DM-Strategien..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Monitoring-Tools im Einsatz</label>
+                    <input type="text" placeholder="z.B. Hootsuite, Brandwatch, Mention, manuelles Tracking...">
+                </div>
+
+                <div class="alert-box" style="margin-top: 15px;">
+                    <strong>Hinweis:</strong> Bei viralen Vorfällen: Screenshots sichern (Beweismittel), aber nicht auf Provokationen reagieren. Abstimmung mit Rechtsabteilung vor jeder öffentlichen Stellungnahme.
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 7 -->
+        <div class="section" data-groups="gross">
+            <div class="section-header">7. Zeitfaktor & Eskalation</div>
+            <div class="section-content">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Eskalationsgeschwindigkeit</label>
+                        <select>
+                            <option>Langsam (Tage)</option>
+                            <option>Mittel (Stunden)</option>
+                            <option>Schnell (Minuten)</option>
+                            <option>Kritisch (Sofortmassnahmen)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Kritische Entscheidungen (naechste 24h)</label>
+                        <textarea placeholder="System-Abschaltung, Ransomware-Zahlung, etc."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 8 -->
+        <div class="section" data-groups="einzel kmu gross">
+            <div class="section-header">8. Technologie & KI-Praesenz</div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label>War KI/Automatisierung im Vorfall involviert?</label>
+                    <select id="kiInvolved" onchange="toggleConditional('ki-details', this.value !== 'Nein')">
+                        <option>Nein</option>
+                        <option>Ja, interne KI-Systeme</option>
+                        <option>Ja, externe KI-Dienste</option>
+                        <option>Unklar/Unbekannt</option>
+                    </select>
+                </div>
+                <div id="ki-details" class="conditional">
+                    <label>Details zu technologischen Aspekten</label>
+                    <textarea placeholder="KI-Modelle, Datenverarbeitung, Prompt-Leaks, automatisierte Entscheidungen..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 9 -->
+        <div class="section" data-groups="einzel">
+            <div class="section-header">9. Beweissicherung</div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label>Durchgefuehrte Massnahmen:</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-item"><input type="checkbox"> <span>Screenshots gemacht</span></label>
+                        <label class="checkbox-item"><input type="checkbox"> <span>Logfiles gesichert</span></label>
+                        <label class="checkbox-item"><input type="checkbox"> <span>E-Mails archiviert</span></label>
+                        <label class="checkbox-item"><input type="checkbox"> <span>Backup erstellt</span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" data-groups="kmu gross">
+            <div class="section-header">9. Beweissicherung & Forensik</div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label>Durchgefuehrte Massnahmen:</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-item"><input type="checkbox"> <span>Screenshots/Dokumentation</span></label>
+                        <label class="checkbox-item"><input type="checkbox"> <span>Logfiles gesichert</span></label>
+                        <label class="checkbox-item"><input type="checkbox"> <span>E-Mails archiviert</span></label>
+                        <label class="checkbox-item"><input type="checkbox"> <span>Zeugenvernehmungen</span></label>
+                        <label class="checkbox-item"><input type="checkbox"> <span>IT-Forensik gestartet</span></label>
+                        <label class="checkbox-item"><input type="checkbox"> <span>Backup erstellt (isoliert)</span></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Weitere Beweismittel</label>
+                    <textarea placeholder="Hardware, Protokolle, Vertraege, Chain of Custody..."></textarea>
+                </div>
+                
+                <div data-show-for="gross" style="display: none; margin-top: 15px;">
+                    <div class="form-group">
+                        <label>Chain of Custody dokumentiert?</label>
+                        <select>
+                            <option>Ja, lueckenlos</option>
+                            <option>Teilweise</option>
+                            <option>Nein</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 10 -->
+        <div class="section" data-groups="einzel">
+            <div class="section-header">10. Sofortmassnahmen (0-24h)</div>
+            <div class="section-content">
+                <div class="form-group">
+                    <label>Umgesetzte Massnahmen:</label>
+                    <textarea rows="6" placeholder="1. Systeme isoliert&#10;2. Kunden informiert&#10;3. Passwoerter geaendert..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" data-groups="kmu gross">
+            <div class="section-header">10. Sofortmassnahmen (0-24h)</div>
+            <div class="section-content">
+                <table class="measures-table">
+                    <thead>
+                        <tr>
+                            <th>Massnahme</th>
+                            <th>Verantwortlich</th>
+                            <th>Frist</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="measures-body">
+                        <tr>
+                            <td><input type="text" placeholder="z.B. Systeme isolieren"></td>
+                            <td><input type="text"></td>
+                            <td><input type="datetime-local"></td>
+                            <td>
+                                <select>
+                                    <option>Offen</option>
+                                    <option>In Arbeit</option>
+                                    <option>Erledigt</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="button" onclick="addMeasureRow()" class="btn-small no-print">+ Massnahme hinzufuegen</button>
+            </div>
+        </div>
+
+        <!-- Section 11 -->
+        <div class="section" data-groups="einzel kmu gross">
+            <div class="section-header">11. Dokumentation & Freigabe</div>
+            <div class="section-content">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Erstellt von</label>
+                        <input type="text" id="creator">
+                    </div>
+                    <div class="form-group">
+                        <label>Datum</label>
+                        <input type="date" id="creationDate">
+                    </div>
+                </div>
+
+                <div data-show-for="kmu gross" style="display: none;">
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label>Geprueft CH (Recht)</label>
+                            <input type="text">
+                        </div>
+                        <div class="form-group">
+                            <label>Geprueft DE (Recht)</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Freigabe durch</label>
+                    <input type="text" placeholder="Name, Funktion">
+                </div>
+                
+                <div class="info-text" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee;">
+                    <strong>Hinweis:</strong> Dieses Dokument dient als internes Arbeitspapier und ersetzt nicht die rechtsverbindliche Meldung an Behoerden. 
+                    Version 4.0 | © Manuela Frenzel | frenzel-publikationen.com
+                </div>
+            </div>
+        </div>
+
+        <div class="action-footer no-print">
+            <button type="button" onclick="window.print()" class="btn-primary">
+                Als PDF speichern / Drucken
+            </button>
+            <button type="button" onclick="saveDraft()" class="btn-secondary">
+                Entwurf speichern
+            </button>
+            <p style="font-size: 0.8em; color: #666; margin-top: 10px;">
+                Alle Daten werden nur lokal in Ihrem Browser gespeichert (DSGVO-konform). 
+                <a href="#" onclick="clearData(); return false;" style="color: var(--danger);">Daten loeschen</a>
+            </p>
+        </div>
+
+    </form>
+</div>
+
+<script>
+let currentType = null;
+let countdownInterval = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('creationDate').valueAsDate = new Date();
+    loadDraft();
+});
+
+function selectType(type, element) {
+    currentType = type;
+    
+    document.querySelectorAll('.type-card').forEach(card => card.classList.remove('active'));
+    element.classList.add('active');
+    
+    setTimeout(() => {
+        document.getElementById('gateway').style.display = 'none';
+        document.getElementById('crisisForm').style.display = 'block';
+        
+        filterSections(type);
+        
+        if (type === 'kmu' || type === 'gross') {
+            document.getElementById('dsb-field').style.display = 'block';
+            document.querySelectorAll('[data-show-for="kmu"]').forEach(el => {
+                if (!el.closest('[data-show-for="gross"]')) el.style.display = 'block';
+            });
+        }
+        
+        if (type === 'gross') {
+            document.querySelectorAll('[data-show-for="gross"]').forEach(el => el.style.display = 'block');
+            document.querySelectorAll('[data-show-for="kmu"]').forEach(el => {
+                if (el.closest('[data-show-for="gross"]')) el.style.display = 'block';
+                else el.style.display = 'none';
+            });
+        } else if (type === 'kmu') {
+            document.querySelectorAll('[data-show-for="gross"]').forEach(el => el.style.display = 'none');
+        }
+        
+        window.scrollTo(0, 0);
+    }, 300);
+}
+
+function filterSections(type) {
+    document.querySelectorAll('.section').forEach(section => {
+        const groups = section.getAttribute('data-groups');
+        if (groups && groups.includes(type)) {
+            section.classList.add('active');
+        } else {
+            section.classList.remove('active');
+        }
+    });
+}
+
+function backToSelection() {
+    const hasData = document.getElementById('incidentDate').value || 
+                   document.getElementById('summary').value;
+    
+    if (hasData) {
+        if (!confirm('Wenn Sie zurückgehen, gehen Ihre bisherigen Eingaben verloren. Trotzdem zurück?')) {
+            return;
+        }
+    }
+    
+    document.getElementById('crisisForm').style.display = 'none';
+    document.getElementById('gateway').style.display = 'block';
+    
+    document.querySelectorAll('.type-card').forEach(card => {
+        card.classList.remove('active');
+    });
+    
+    window.scrollTo(0, 0);
+}
+
+function calculateDeadlines() {
+    const dateInput = document.getElementById('incidentDate').value;
+    const timeInput = document.getElementById('incidentTime').value;
+    
+    if (countdownInterval) clearInterval(countdownInterval);
+    
+    if (!dateInput) {
+        document.getElementById('gdprDeadline').textContent = '--';
+        document.getElementById('deadlineStatus').textContent = 'Bitte Datum eingeben';
+        document.getElementById('deadlineStatus').style.color = '#666';
+        return;
+    }
+    
+    const [year, month, day] = dateInput.split('-').map(Number);
+    let hours = 0, minutes = 0;
+    if (timeInput) [hours, minutes] = timeInput.split(':').map(Number);
+    
+    const incidentDate = new Date(year, month - 1, day, hours, minutes);
+    const deadlineDate = new Date(incidentDate.getTime() + (72 * 60 * 60 * 1000));
+    
+    const options = { 
+        day: '2-digit', month: '2-digit', year: 'numeric', 
+        hour: '2-digit', minute: '2-digit', hour12: false 
+    };
+    
+    document.getElementById('gdprDeadline').textContent = deadlineDate.toLocaleString('de-DE', options);
+    
+    updateCountdown(deadlineDate);
+    countdownInterval = setInterval(() => updateCountdown(deadlineDate), 60000);
+}
+
+function updateCountdown(deadlineDate) {
+    const now = new Date();
+    const diff = deadlineDate - now;
+    const statusEl = document.getElementById('deadlineStatus');
+    
+    if (diff <= 0) {
+        statusEl.innerHTML = 'FRIST ABGELAUFEN! Sofortige Meldung erforderlich!';
+        statusEl.style.color = '#dc3545';
+        if (countdownInterval) clearInterval(countdownInterval);
+        return;
+    }
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    
+    let text = '';
+    if (days > 0) text += `${days}d `;
+    text += `${hours}h ${minutes}min`;
+    
+    statusEl.textContent = `Noch ${text} Zeit zur Meldung`;
+    
+    const totalHours = diff / (1000 * 60 * 60);
+    if (totalHours < 4) statusEl.style.color = '#dc3545';
+    else if (totalHours < 24) statusEl.style.color = '#fd7e14';
+    else statusEl.style.color = '#28a745';
+}
+
+function updateAuthorities() {
+    const location = document.getElementById('location').value;
+    const container = document.getElementById('authorities-container');
+    
+    if (!location) {
+        container.innerHTML = '<div style="color: #999; font-style: italic; padding: 10px;">Bitte zuerst Standort auswaehlen...</div>';
+        return;
+    }
+    
+    let html = '';
+    
+    const authorities = {
+        ch: [
+            {
+                id: 'bacs', 
+                name: 'BACS (CH Cyber-Sicherheit)', 
+                detail: '<a href="https://www.report.ncsc.admin.ch/de/chat?path=406%3E407%3E1 " target="_blank" style="color: var(--primary); text-decoration: underline;">Chat-Formular: Cybervorfall melden</a>',
+                note: 'Kein Telefon-Support',
+                email: 'incidents@ncsc.ch'
+            },
+            {
+                id: 'edoeb', 
+                name: 'EDoeb (CH Datenschutz)', 
+                detail: '<span class="contact-info">058 462 43 95</span>',
+                note: 'Mo-Fr 10-11:30h',
+                email: null
+            },
+            {
+                id: 'finma', 
+                name: 'FINMA (bei Finanzdienstleistern)', 
+                detail:'<span class="contact-info">031 327 98 88</span>',
+                note: null,
+                email: null
+            }
+        ],
+        de: [
+            {
+                id: 'bsi', 
+                name: 'BSI (DE Cyber-Sicherheit)', 
+                detail: '<span class="contact-info">0800 274 1000</span>',
+                note: 'Mo-Do 08-17h, Fr 08-16h',
+                email: 'service-center@bsi.bund.de'
+            },
+            {
+                id: 'lda', 
+                name: 'Landesdatenschutzbehoerde (DE)', 
+                detail: 'Je nach Bundesland',
+                note: null,
+                email: null
+            },
+            {
+                id: 'bafin', 
+                name: 'BaFin (bei Finanzdienstleistern)', 
+                detail: '<span class="contact-info">0800 2 100 500</span> | <a href="https://www.bafin.de/DE/DieBaFin/Kontakt/kontakt_node.html " target="_blank" style="color: var(--primary); text-decoration: underline;">Kontaktformular</a>',
+                note: 'Für Anrufe aus der Schweiz: +49 (0) 228 299 70 299',
+                email: null
+            }
+        ]
+    };
+    
+    const common = [
+        {
+            id: 'polizei', 
+            name: 'Polizei (bei Straftaten)', 
+            detail: '<span class="contact-info">117 (CH) / 110 (DE)</span>',
+            note: '24/7 - Erpressung, Hacking, etc.',
+            email: null
+        }
+    ];
+    
+    const renderAuth = (auth) => {
+        let emailHtml = auth.email ? `<div style="margin-top: 4px;"><span class="email-info">${auth.email}</span></div>` : '';
+        let noteHtml = auth.note ? `<small style="color: #666; display: block; margin-top: 4px;">${auth.note}</small>` : '';
+        return `
+            <div class="authority-item" style="flex-direction: column; align-items: flex-start;">
+                <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+                    <input type="checkbox" id="${auth.id}">
+                    <label for="${auth.id}" style="margin: 0; font-weight: 600; flex: 1;">
+                        ${auth.name}
+                    </label>
+                </div>
+                <div style="margin-left: 28px; margin-top: 5px;">
+                    ${auth.detail}
+                    ${emailHtml}
+                    ${noteHtml}
+                </div>
+            </div>
+        `;
+    };
+    
+    if (location === 'ch' || location === 'both') {
+        html += '<div style="font-weight: bold; margin: 10px 0 5px 0; color: var(--primary);">Schweiz</div>';
+        authorities.ch.forEach(auth => html += renderAuth(auth));
+    }
+    
+    if (location === 'de' || location === 'both') {
+        html += '<div style="font-weight: bold; margin: 15px 0 5px 0; color: var(--primary);">Deutschland</div>';
+        authorities.de.forEach(auth => html += renderAuth(auth));
+    }
+    
+    html += '<div style="font-weight: bold; margin: 15px 0 5px 0; color: var(--danger);">Notfall (beide Laender)</div>';
+    common.forEach(auth => html += renderAuth(auth));
+    
+    container.innerHTML = html;
+}
+
+function checkKritis() {
+    const sector = document.getElementById('sector').value;
+    const warning = document.getElementById('kritis-warning');
+    const kritisch = ['transport', 'energie'];
+    
+    if (kritisch.includes(sector)) warning.classList.add('show');
+    else warning.classList.remove('show');
+}
+
+function toggleConditional(id, show) {
+    const el = document.getElementById(id);
+    if (show) el.classList.add('show');
+    else el.classList.remove('show');
+}
+
+function addMeasureRow() {
+    const tbody = document.getElementById('measures-body');
+    const newRow = tbody.rows[0].cloneNode(true);
+    newRow.querySelectorAll('input').forEach(input => input.value = '');
+    tbody.appendChild(newRow);
+}
+
+function saveDraft() {
+    const data = { type: currentType };
+    document.querySelectorAll('input, select, textarea').forEach(field => {
+        if (field.id) data[field.id] = field.value;
+    });
+    localStorage.setItem('krisenmanagement_audit_v3', JSON.stringify(data));
+    alert('Entwurf lokal gespeichert.');
+}
+
+function loadDraft() {
+    const saved = localStorage.getItem('krisenmanagement_audit_v3');
+    if (saved) {
+        const data = JSON.parse(saved);
+        if (data.type && confirm('Gespeicherten Entwurf laden?')) {
+            const types = ['einzel', 'kmu', 'gross'];
+            const index = types.indexOf(data.type);
+            if (index >= 0) {
+                const cards = document.querySelectorAll('.type-card');
+                if (cards[index]) selectType(data.type, cards[index]);
+            }
+            
+            setTimeout(() => {
+                Object.keys(data).forEach(key => {
+                    if (key !== 'type' && document.getElementById(key)) {
+                        document.getElementById(key).value = data[key];
+                    }
+                });
+                calculateDeadlines();
+                updateAuthorities();
+            }, 500);
+        }
+    }
+}
+
+function clearData() {
+    if (confirm('Alle gespeicherten Daten loeschen?')) {
+        localStorage.removeItem('krisenmanagement_audit_v3');
+        location.reload();
+    }
+}
+
+// HILFE MODAL FUNKTIONEN
+function openHelp() {
+    const modal = document.getElementById('helpModal');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeHelp(event) {
+    if (!event || event.target.id === 'helpModal' || event.target.classList.contains('modal-close')) {
+        const modal = document.getElementById('helpModal');
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Escape-Taste zum Schliessen
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeHelp();
+    }
+});
+</script>
+
+</body>
+</html>
