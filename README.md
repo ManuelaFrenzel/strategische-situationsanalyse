@@ -1,0 +1,2 @@
+# strategische-situationsanalyse
+Krisenmanagement Orientierungs-Audit für Datenschutzvorfälle
